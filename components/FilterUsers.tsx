@@ -11,6 +11,10 @@ import {useState} from "react"
 export default function FilterUsers({users}: {users: User[]}){
     const [searchTerm, setSearchTerm] = useState("");
 
+    const filteredUsers = users.filter(User=> {
+        return User.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+    })
+
     return(
         <div>
             <input 
@@ -19,6 +23,14 @@ export default function FilterUsers({users}: {users: User[]}){
             value={searchTerm}
             onChange={(e)=> setSearchTerm(e.target.value)}
              />
+
+             <ul>
+                {filteredUsers.map((user: User)=>{
+                    return (
+                        <li key={user.id}>{user.name}</li>
+                    )
+                })}
+             </ul>
         </div>
     );
 }
